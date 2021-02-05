@@ -1,0 +1,7 @@
+{
+      "john_smith":{"password": "abcd2345", "instances": ["/john/john_1", 
+                                 "/john/john_2"] } ,
+      "jenny_lowe":{"password": "hkjkgj56", "instances": ["/home/lowe_1", 
+                                 "/home/lowe_2",
+                                 "/home/lowe_3"] }
+}

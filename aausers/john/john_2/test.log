@@ -1,0 +1,9 @@
+[2021-02-04 09:21:32] local.ERROR: syntax error, unexpected ')' {"exception":"[object] (ParseError(code: 0): syntax error, unexpected ')' at /var/www/html/python-app-manager/vendor/laravel/framework/src/Illuminate/Testing/Concerns/TestDatabases.php:148)
+[stacktrace]
+#0 /var/www/html/python-app-manager/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/p...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Illuminate\\\\Test...')
+#2 /var/www/html/python-app-manager/vendor/laravel/framework/src/Illuminate/Testing/ParallelTestingServiceProvider.php(11): spl_autoload_call('Illuminate\\\\Test...')
+#3 /var/www/html/python-app-manager/vendor/composer/ClassLoader.php(444): include('/var/www/html/p...')
+#4 /var/www/html/python-app-manager/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/var/www/html/p...')
+#5 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Illuminate\\\\Test...')
+#6 /var/www/html/python-app-manager/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(720): spl_autoload_call('Illuminate\\\\Test...')
