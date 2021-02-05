@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Forms\ConfForm;
+use App\Forms\FileForm;
 use Illuminate\Support\Facades\Storage;
 use Kris\LaravelFormBuilder\FormBuilder;
 
 class HomeController extends Controller
 {
-    private function getLog()
+    private function getLog($download = null)
     {   
         $log = '';
         $arrDir = Storage::directories('aausers'.session('currentpath').'/logs');
@@ -22,7 +23,10 @@ class HomeController extends Controller
         }
         $sorted = collect($newArr)->sort()->all();
         $latest = end($sorted);
-        $log = Storage::get('aausers'.session('currentpath').'/logs/'.$latest.'/client.log');
+        $path = 'aausers'.session('currentpath').'/logs/'.$latest.'/client.log';
+        if($download)
+            return Storage::download($path);
+        $log = Storage::get($path);
         return $log;
     }
     /**
@@ -33,8 +37,6 @@ class HomeController extends Controller
     public function __construct()
     {   
         $this->middleware(function ($request, $next){
-            //session()->flush();
-            //exit();
             $login = session('login');
             if(session('login')){
 
@@ -62,7 +64,13 @@ class HomeController extends Controller
             'method' => 'POST'
         ],['conf' => $conf]);
 
-        return view('home',['log' => $log,'form' => $form]);
+        $fileform = $formBuilder->create(FileForm::class, [
+            'method' => 'POST',
+            'url' => route('upload.file'),
+            'id' => 'module_form'
+        ]);
+
+        return view('home',['log' => $log,'form' => $form, 'fileform' => $fileform]);
     }
     public function postindex(Request $request)
     {
@@ -78,9 +86,17 @@ class HomeController extends Controller
     }
     public function switch_instance($key)
     {
-
        session(['currentpath' => session('details')['instances'][$key]]);
        return redirect('home');
+    }
+    public function downloadLog()
+    {
+        return $this->getLog(true);
+    }
+    public function uploadFile(Request $request)
+    {
+        $path = $request->file('upload_file')->store('aausers'.session('currentpath'));
+        return redirect('home');
     }
 
 }

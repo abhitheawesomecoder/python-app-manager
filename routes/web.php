@@ -23,7 +23,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::get('/test', [App\Http\Controllers\HomeController::class, 'getLog'])->name('test');
+Route::post('/upload', [App\Http\Controllers\HomeController::class, 'uploadFile'])->name('upload.file');
+
+Route::get('/download-log', [App\Http\Controllers\HomeController::class, 'downloadLog'])->name('download.log');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

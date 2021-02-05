@@ -11,7 +11,12 @@
                      <button class="btn btn-success m-t-15 waves-effect float-right" type="button">Run</button> 
                      
                 </div>
-             </div>   
+             </div>  
+            <div class="card">
+                <div class="card-body">
+                    {!! form($fileform) !!}
+                </div>
+            </div> 
             <div class="card">
                 <div class="card-header">{{ __('Configuration') }}</div>
 
@@ -22,7 +27,9 @@
         </div>
         <div class="col-md-7">
             <div class="card">
-                <div class="card-header">{{ __('Log') }}</div>
+                <div class="card-header">{{ __('Log') }}
+                    <a href="{{route('download.log')}}" class="btn btn-success float-right">Download</a>
+                </div>
                 
                 <div class="card-body">
 

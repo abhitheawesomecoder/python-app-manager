@@ -11,7 +11,7 @@ class ConfForm extends Form
         foreach ($this->getData('conf') as $key => $value) {
         	$this->add(${'key'}, 'text',['default_value' => $value]);
         } 
-        $this->add('submit', 'submit', ['label' => 'Update','attr' => ['class' => 'btn btn-primary m-t-15 waves-effect']]);
+        $this->add('submit', 'submit', ['label' => 'Update','attr' => ['class' => 'btn btn-primary m-t-15 waves-effect float-right']]);
 
     }
 }
