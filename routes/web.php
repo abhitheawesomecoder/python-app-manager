@@ -14,14 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+	$login = session('login');
+    if(session('login'))
+    	return redirect()->route('home');
+
     return view('auth.login');
 });
 
 Auth::routes();
 
-//Route::get('/switchinstance/{}', [App\Http\Controllers\HomeController::class, 'test'])->name('test');
+//Route::get('/test', [App\Http\Controllers\HomeController::class, 'getLog'])->name('test');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/home', [App\Http\Controllers\HomeController::class, 'postindex'])->name('posthome');
 
 Route::get('/switch-instance/{key}', [App\Http\Controllers\HomeController::class, 'switch_instance'])->name('switch.instance');
 

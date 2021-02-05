@@ -36,8 +36,12 @@
                     @if(session('login'))
                      @foreach (session('details')['instances'] as $key => $value)
                         <li class="nav-item">
+                            @if($value == session('currentpath'))
+                            <a class="nav-link active" href="{{route('switch.instance',$key)}}" >
+                            Instance{{$key+1}}</a>
+                                @else
                                 <a class="nav-link" href="{{route('switch.instance',$key)}}" >Instance{{$key+1}}</a>
-
+                            @endif
                         </li>
                     @endforeach
                     @endif

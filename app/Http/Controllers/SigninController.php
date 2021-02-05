@@ -14,6 +14,10 @@ class SigninController extends Controller
      */
     public function index(Request $request)
     {
+        $login = session('login');
+        if(session('login'))
+            return redirect()->route('home');
+        
         $filename = 'global_conf';
         //$arrDir = Storage::directories('aausers');
         $path = base_path() . "/aausers/${filename}.json";

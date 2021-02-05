@@ -9,6 +9,22 @@ use Kris\LaravelFormBuilder\FormBuilder;
 
 class HomeController extends Controller
 {
+    private function getLog()
+    {   
+        $log = '';
+        $arrDir = Storage::directories('aausers'.session('currentpath').'/logs');
+        if(empty($arrDir))
+            return $log;
+        $newArr = [];
+        foreach ($arrDir as $key => $value) {
+            $rowarrDir = explode("/",$value);
+            array_push($newArr,end($rowarrDir));
+        }
+        $sorted = collect($newArr)->sort()->all();
+        $latest = end($sorted);
+        $log = Storage::get('aausers'.session('currentpath').'/logs/'.$latest.'/client.log');
+        return $log;
+    }
     /**
      * Create a new controller instance.
      *
@@ -28,7 +44,8 @@ class HomeController extends Controller
             return $next($request);
         });
     }
-
+//nohup python3 main.py & echo $! > run.pid
+//kill -9 41345
     /**
      * Show the application dashboard.
      *
@@ -36,7 +53,7 @@ class HomeController extends Controller
      */
     public function index(FormBuilder $formBuilder)
     {
-        $log = Storage::get('aausers'.session('currentpath').'/test.log');
+        $log = $this->getLog();
         $conf = base_path().'/aausers'.session('currentpath').'/config.json';
         //echo $conf;
         //exit();
@@ -47,16 +64,20 @@ class HomeController extends Controller
 
         return view('home',['log' => $log,'form' => $form]);
     }
-    /*public function test($key)
+    public function postindex(Request $request)
     {
-        echo "test";
-
-    }*/
+        $confpath = base_path().'/aausers'.session('currentpath').'/config.json';
+        $conf = json_decode(file_get_contents($confpath), true); 
+        $arr = [];
+        foreach ($conf as $key => $value) {  
+            $arr[$key] = $request->${'key'};
+        } 
+        Storage::put('aausers'.session('currentpath').'/config.json', json_encode($arr));
+        
+       return redirect()->route('home');
+    }
     public function switch_instance($key)
     {
-        //echo "test";
-        //exit();
-        //print_r(session('details')['instances'][$key]);
 
        session(['currentpath' => session('details')['instances'][$key]]);
        return redirect('home');
