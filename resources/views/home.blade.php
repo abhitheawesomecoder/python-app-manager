@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header">
 
-                     <button class="btn btn-danger m-t-15 waves-effect" type="button">Kill</button> 
-                     <button class="btn btn-success m-t-15 waves-effect float-right" type="button">Run</button> 
+                     <button id="kill" class="btn btn-danger m-t-15 waves-effect" type="button">Kill</button> 
+                     <button id="run" class="btn btn-success m-t-15 waves-effect float-right" type="button">Run</button> 
                      
                 </div>
              </div>  
@@ -40,3 +40,29 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+function makeCall(param){
+    $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                }); 
+                $.ajax({
+                    type: 'POST',
+                    url: param,
+                    success: function (result) {
+                        alert(result);
+                    }
+                });
+}
+$( document ).ready(function() {
+    $( "#kill" ).click(function() {
+        makeCall('kill-process');
+    });
+    $( "#run" ).click(function() {
+       makeCall('run-process');
+    });
+});
+</script>
+@endpush

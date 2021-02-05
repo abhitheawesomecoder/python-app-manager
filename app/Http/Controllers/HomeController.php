@@ -46,8 +46,7 @@ class HomeController extends Controller
             return $next($request);
         });
     }
-//nohup python3 main.py & echo $! > run.pid
-//kill -9 41345
+
     /**
      * Show the application dashboard.
      *
@@ -97,6 +96,18 @@ class HomeController extends Controller
     {
         $path = $request->file('upload_file')->store('aausers'.session('currentpath'));
         return redirect('home');
+    }
+    //nohup python3 main.py & echo $! > run.pid
+    //kill -9 41345
+    public function runprocess()
+    {
+        // path to current instance
+        $path = base_path().'/aausers'.session('currentpath');
+        echo "Run";
+    }
+    public function killprocess()
+    {
+        echo "kill";
     }
 
 }
