@@ -23,13 +23,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::post('/update-process', [App\Http\Controllers\HomeController::class, 'getProcessId'])->name('get.processid');
+
 Route::post('/run-process', [App\Http\Controllers\HomeController::class, 'runprocess'])->name('run.process');
 
 Route::post('/kill-process', [App\Http\Controllers\HomeController::class, 'killprocess'])->name('kill.process');
 
 Route::post('/upload', [App\Http\Controllers\HomeController::class, 'uploadFile'])->name('upload.file');
 
+Route::post('/get-log', [App\Http\Controllers\HomeController::class, 'getLog'])->name('get.log');
+
 Route::get('/download-log', [App\Http\Controllers\HomeController::class, 'downloadLog'])->name('download.log');
+
+Route::get('/download-config', [App\Http\Controllers\HomeController::class, 'downloadConfig'])->name('download.config');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

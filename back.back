@@ -1,0 +1,3 @@
+cd /var/www/html/python && nohup python3 python.py </dev/null &>/dev/null &
+nohup python3 main.py & echo $! > run.pid
+kill -9 41345
